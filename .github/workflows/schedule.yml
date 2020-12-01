@@ -27,8 +27,8 @@ jobs:
       - uses: actions/setup-node@v1
        with:
          node-version: ${{ matrix.node_version }}
-      - run: git config --local user.email "justjavac@gmail.com"
-      - run: git config --local user.name "迷渡"
+      - run: git config --local user.email "1342671790@qq.com"
+      - run: git config --local user.name "tzcteddy"
       - run: git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
       - run: git pull --rebase
       - run: npm ci
