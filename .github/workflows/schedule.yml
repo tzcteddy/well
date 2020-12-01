@@ -27,15 +27,15 @@ jobs:
       - uses: actions/setup-node@v2
         with:
          node-version: ${{ matrix.node_version }}
-         
-      - name: run
-       run: |
-         git config --local user.email "1342671790@qq.com"
-         git config --local user.name "tzcteddy"
-         git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-         git pull --rebase
-         npm ci
-         npm run build
-         git add .
-         git commit -m "update by github action"
-         git push
+
+      - name: Run Node
+        run: |
+          git config --local user.email "1342671790@qq.com"
+          git config --local user.name "tzcteddy"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git pull --rebase
+          npm ci
+          npm run build
+          git add .
+          git commit -m "update by github action"
+          git push
