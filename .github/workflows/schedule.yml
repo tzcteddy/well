@@ -3,32 +3,25 @@ name: schedule
 on:
   schedule:
     - cron: "* * * * *"
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
 
-    env:
-      TZ: Asia/Beijing
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.x, 12.x, 14.x]
 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-        
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-        run: |
-          git config --local user.email "1342671790@qq.com"
-          git config --local user.name "tzcteddy"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git pull --rebase
-          node app.js
-          git add .
-          git commit -m "update by github action"
-          git push
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm run build --if-present
