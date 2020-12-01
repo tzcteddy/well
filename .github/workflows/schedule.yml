@@ -2,13 +2,7 @@ name: schedule
 
 on:
   schedule:
-    - cron: "* * * * *"
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+    - cron: "*/5 * * * *"
 
 jobs:
   build:
